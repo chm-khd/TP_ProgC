@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main() {
-    // Déclaration et affectation des variables
+
     signed char c1 = -100;
     unsigned char c2 = 200;
 
@@ -21,7 +21,7 @@ int main() {
     double d = 2.718281828;
     long double ld = 1.6180339887L;
 
-    // Affichage des valeurs
+ 
     printf("signed char       : %d\n", c1);
     printf("unsigned char     : %u\n", c2);
 
@@ -43,3 +43,4 @@ int main() {
 
     return 0;
 }
+
