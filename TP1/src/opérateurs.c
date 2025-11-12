@@ -5,16 +5,15 @@ int main() {
     int b = 3;
 
     printf("a = %d, b = %d\n\n", a, b);
-    printf("Addition (a + b)       = %d\n", a + b);
-    printf("Soustraction (a - b)   = %d\n", a - b);
-    printf("Multiplication (a * b) = %d\n", a * b);
-    printf("Division (a / b)       = %d\n", a / b);
-    printf("Modulo (a %% b)         = %d\n", a % b);
 
-    printf("\nComparaisons logiques :\n");
-    printf("a == b : %d\n", a == b);  
-    printf("a > b  : %d\n", a > b);  
+    printf("a + b = %d\n", a + b);
+    printf("a - b = %d\n", a - b);
+    printf("a * b = %d\n", a * b);
+    printf("a / b = %d\n", a / b);
+    printf("a %% b = %d\n", a % b);
+
+    printf("a == b : %d\n", a == b ? 1 : 0);
+    printf("a > b  : %d\n", a > b  ? 1 : 0);
 
     return 0;
 }
-
