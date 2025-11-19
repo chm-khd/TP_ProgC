@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 #define TAILLE 100
 
@@ -9,17 +7,6 @@ void afficherTableau(int tab[], int taille) {
         printf("%d ", tab[i]);
     }
     printf("\n");
-}
-void triBulles(int tab[], int taille) {
-    for (int i = 0; i < taille - 1; i++) {
-        for (int j = 0; j < taille - i - 1; j++) {
-            if (tab[j] > tab[j + 1]) {
-                int temp = tab[j];
-                tab[j] = tab[j + 1];
-                tab[j + 1] = temp;
-            }
-        }
-    }
 }
 
 int rechercheDichotomique(int tab[], int taille, int valeur) {
@@ -44,13 +31,9 @@ int main() {
     int tableau[TAILLE];
     int entierRecherche;
 
-    srand(time(NULL));
-
     for (int i = 0; i < TAILLE; i++) {
-        tableau[i] = rand() % 1000;
+        tableau[i] = i + 1; 
     }
-
-    triBulles(tableau, TAILLE);
 
     printf("Tableau trié :\n");
     afficherTableau(tableau, TAILLE);
@@ -66,3 +49,4 @@ int main() {
 
     return 0;
 }
+
