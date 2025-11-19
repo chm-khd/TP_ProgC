@@ -1,53 +1,42 @@
 #include <stdio.h>
-#include "operator.h"
+#include <string.h>
+#include "fichier.h"
 
 int main() {
-    int num1, num2, resultat;
-    char op;
+    int choix;
+    char nom_fichier[256];
+    char message[1024];
 
-    printf("Entrez num1 : ");
-    scanf("%d", &num1);
-    printf("Entrez num2 : ");
-    scanf("%d", &num2);
-    printf("Entrez l'opérateur (+, -, *, /, %%, &, |, ~) : ");
-    scanf(" %c", &op); 
+    while (1) {
+        printf("\nQue souhaitez-vous faire ?\n");
+        printf("1. Lire un fichier\n");
+        printf("2. Écrire dans un fichier\n");
+        printf("3. Quitter\n");
+        printf("Votre choix : ");
+        scanf("%d", &choix);
+        getchar(); 
 
-    switch(op) {
-        case '+':
-            resultat = somme(num1, num2);
-            printf("Résultat : %d\n", resultat);
+        if (choix == 1) {
+            printf("Entrez le nom du fichier à lire : ");
+            fgets(nom_fichier, sizeof(nom_fichier), stdin);
+            nom_fichier[strcspn(nom_fichier, "\n")] = 0; 
+            lire_fichier(nom_fichier);
+        } else if (choix == 2) {
+            printf("Entrez le nom du fichier dans lequel vous souhaitez écrire : ");
+            fgets(nom_fichier, sizeof(nom_fichier), stdin);
+            nom_fichier[strcspn(nom_fichier, "\n")] = 0; 
+            
+            printf("Entrez le message à écrire : ");
+            fgets(message, sizeof(message), stdin);
+            message[strcspn(message, "\n")] = 0; 
+
+            ecrire_dans_fichier(nom_fichier, message);
+        } else if (choix == 3) {
+            printf("Programme terminé.\n");
             break;
-        case '-':
-            resultat = difference(num1, num2);
-            printf("Résultat : %d\n", resultat);
-            break;
-        case '*':
-            resultat = produit(num1, num2);
-            printf("Résultat : %d\n", resultat);
-            break;
-        case '/':
-            resultat = quotient(num1, num2);
-            printf("Résultat : %d\n", resultat);
-            break;
-        case '%':
-            resultat = modulo(num1, num2);
-            printf("Résultat : %d\n", resultat);
-            break;
-        case '&':
-            resultat = et(num1, num2);
-            printf("Résultat : %d\n", resultat);
-            break;
-        case '|':
-            resultat = ou(num1, num2);
-            printf("Résultat : %d\n", resultat);
-            break;
-        case '~':
-            resultat = negation(num1);
-            printf("Résultat : %d\n", resultat);
-            break;
-        default:
-            printf("Opérateur invalide !\n");
-            break;
+        } else {
+            printf("Choix invalide !\n");
+        }
     }
 
     return 0;
