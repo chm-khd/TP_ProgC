@@ -1,57 +1,66 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define TAILLE 100
+
+typedef struct {
+    unsigned char R;
+    unsigned char G;
+    unsigned char B;
+    unsigned char A;
+} Couleur;
+
+typedef struct {
+    Couleur couleur;
+    int compteur;
+} CouleurDistincte;
+
+int couleursEgales(Couleur c1, Couleur c2) {
+    return (c1.R == c2.R) && (c1.G == c2.G) && (c1.B == c2.B) && (c1.A == c2.A);
+}
+
+void afficherCouleur(Couleur c) {
+    printf("%02x %02x %02x %02x", c.R, c.G, c.B, c.A);
+}
 
 int main() {
-    short s = 0x0203;
-    int i = 0x01020304;
-    long int l = 0x0102030405060708;
-    float f = 3.25f;
-    double d = 1.0;
-    long double ld = 1.0L;
+    Couleur tableau[TAILLE];
+    CouleurDistincte distinctes[TAILLE];
+    int nbDistinctes = 0;
 
-    unsigned char *p;
-    int j;
+    srand(time(NULL));
 
-    printf("Octets de short :\n");
-    p = (unsigned char *)&s;
-    for (j = 0; j < sizeof(s); j++) {
-        printf("%02x ", p[j]);
+    for (int i = 0; i < TAILLE; i++) {
+        tableau[i].R = rand() % 256;
+        tableau[i].G = rand() % 256;
+        tableau[i].B = rand() % 256;
+        tableau[i].A = rand() % 256;
     }
-    printf("\n\n");
 
-    printf("Octets de int :\n");
-    p = (unsigned char *)&i;
-    for (j = 0; j < sizeof(i); j++) {
-        printf("%02x ", p[j]);
+    for (int i = 0; i < TAILLE; i++) {
+        int trouve = 0;
+        for (int j = 0; j < nbDistinctes; j++) {
+            if (couleursEgales(tableau[i], distinctes[j].couleur)) {
+                distinctes[j].compteur++;
+                trouve = 1;
+                break;
+            }
+        }
+        if (!trouve) {
+            distinctes[nbDistinctes].couleur = tableau[i];
+            distinctes[nbDistinctes].compteur = 1;
+            nbDistinctes++;
+        }
     }
-    printf("\n\n");
 
-    printf("Octets de long int :\n");
-    p = (unsigned char *)&l;
-    for (j = 0; j < sizeof(l); j++) {
-        printf("%02x ", p[j]);
+    printf("Couleurs distinctes et occurrences :\n");
+    for (int i = 0; i < nbDistinctes; i++) {
+        afficherCouleur(distinctes[i].couleur);
+        printf(" : %d\n", distinctes[i].compteur);
     }
-    printf("\n\n");
-
-    printf("Octets de float :\n");
-    p = (unsigned char *)&f;
-    for (j = 0; j < sizeof(f); j++) {
-        printf("%02x ", p[j]);
-    }
-    printf("\n\n");
-
-    printf("Octets de double :\n");
-    p = (unsigned char *)&d;
-    for (j = 0; j < sizeof(d); j++) {
-        printf("%02x ", p[j]);
-    }
-    printf("\n\n");
-
-    printf("Octets de long double :\n");
-    p = (unsigned char *)&ld;
-    for (j = 0; j < sizeof(ld); j++) {
-        printf("%02x ", p[j]);
-    }
-    printf("\n");
 
     return 0;
 }
+
+
